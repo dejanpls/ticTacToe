@@ -75,3 +75,14 @@ const checkResult = (board) => {
 
     return false;
 };
+
+// DOM
+const boardContainer = document.querySelector("div.board");
+
+function generateBoard() {
+    for (i = 0; i < 9; i++) {
+        const spot = document.createElement("div");
+        spot.classList = `spot spot-${i}`; 
+        boardContainer.appendChild(spot);
+    }
+}

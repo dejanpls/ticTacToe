@@ -3,12 +3,12 @@
 A simple and interactive Tic Tac Toe game built with HTML, CSS, and JavaScript. Play against a computer opponent and enjoy a responsive and modern design.
 
 
-[Live Page](https://dejanpls.github.io/ticTacToe/)
+See now [Live Page](https://dejanpls.github.io/ticTacToe/)
 
 ## Features
 - Playable 3x3 Tic Tac Toe board.
 - Dynamic game board generation and DOM updates.
-- Player vs. Computer mode with basic AI.
+- Player vs. Computer mode.
 - Toggle between markers (X and O) before starting the game.
 - Displays the game result: Win, Lose, or Tie.
 - Modern styling with hover effects and animations.
@@ -25,7 +25,7 @@ A simple and interactive Tic Tac Toe game built with HTML, CSS, and JavaScript. 
 
 ## Project Structure
 ```
-tic-tac-toe/
+ticTacToe/
 ├── index.html        # HTML structure
 ├── style.css         # Styling for the game
 ├── script.js         # Game logic and interactivity

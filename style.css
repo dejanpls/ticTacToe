@@ -2,6 +2,7 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: "DynaPuff", serif;
 }
 
 div.wrapper {
@@ -41,21 +42,30 @@ div.wrapper {
 /* gameboard */
 .main {
     padding: 20px 0;
+    height: 100vh;
     
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     gap: 20px;
+    background-color: #81c3d7;
+}
+
+div.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+
+    max-width: 320px
 }
 
 button.btn {
     padding: 8px 16px;
-    background-color: #2f6690;
+    background-color: #81b29a;
     color: #fff;
     border: none;
     border-radius: 8px;
-    font-size: 24px;
+    font-size: 18px;
     cursor: pointer;
 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -72,7 +82,6 @@ div.board {
     gap: 0.1rem;
 }
 
-
 div.spot {
     width: 100px;
     height: 100px;
@@ -88,6 +97,8 @@ div.spot {
     align-items: center;
 
     font-size: 42px;
+    color: #81c3d7;
+    background-color: #2f6690;
 }
 
 div.spot:hover,
@@ -100,6 +111,11 @@ div.gameOver {
     flex-direction: column;
     align-items: center;
     gap: 8px;
+}
+
+p.winner {
+    color: #2f6690;
+    font-size: 32px;
 }
 
 .footer-container {

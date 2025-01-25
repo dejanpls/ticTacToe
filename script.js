@@ -25,6 +25,7 @@ let computer = createPlayer("O");
 const gameBoard = (function () {
     let spots = getGameBoard();
     let wins = [0, 0];
+    let winCombo = [];
 
     const setSpot = (spot, marker) => {
         if (spots[spot] === null && !checkResult(spots)) {
@@ -42,13 +43,27 @@ const gameBoard = (function () {
         }
     }
 
+    const getWinCombo = () => winCombo;
+    let setWinCombo = (array) => winCombo = array; 
+
     const getPlayerScore = () => wins[0];
     const getComputerScore = () => wins[1];
 
     let setPlayerScore = () => wins[0] += 1;
     let setComputerScore = () => wins[1] += 1;
 
-    return { setSpot, reset, getSpots, getPlayerScore, getComputerScore, getSpot, setPlayerScore, setComputerScore };
+    return { 
+        setSpot, 
+        reset, 
+        getSpots, 
+        getPlayerScore, 
+        getComputerScore, 
+        getSpot, 
+        setPlayerScore, 
+        setComputerScore,
+        getWinCombo,
+        setWinCombo,
+    };
 })();
 
 const checkResult = (board) => {
@@ -65,6 +80,7 @@ const checkResult = (board) => {
 
     for (const [a, b, c] of winningLines) {
         if (board[a] !== null && board[a] === board[b] && board[b] === board[c]) {
+            gameBoard.setWinCombo([a, b, c]);
             return true;
         }
     }
@@ -75,6 +91,7 @@ const checkResult = (board) => {
 // DOM
 const boardContainer = document.querySelector("div.board");
 const resetBtn = document.querySelector("button.reset");
+const toggleMarkerBtn = document.querySelector("button.toggleMarker");
 
 function generateBoard() {
     for (i = 0; i < 9; i++) {
@@ -96,19 +113,21 @@ function selectSpot(e) {
         const randomIndex = getRandomIndex(gameBoard.getSpots());
     
         if (checkResult(gameBoard.getSpots())) {
-            updateScore(player.getMarker());
-            toggleResetBtn("You");
+            updateScore("player");
+            toggleResetBtn("You Won!");
+            markWinCombo();
     
         } else if (randomIndex !== -1) {
             gameBoard.setSpot(randomIndex, computer.getMarker());
     
             if (checkResult(gameBoard.getSpots())) {
-                updateScore(computer.getMarker());
-                toggleResetBtn("Computer");
+                updateScore("computer");
+                toggleResetBtn("Computer Won!");
+                markWinCombo();
             }
         };
     
-        if (randomIndex === -1 && !checkResult(gameBoard.getSpots())) console.log("Tie.");
+        if (randomIndex === -1 && !checkResult(gameBoard.getSpots())) toggleResetBtn("It's a tie.");
     
         // update the DOM
         updateBoard();
@@ -117,10 +136,9 @@ function selectSpot(e) {
 
 function toggleResetBtn (winner) {
     const gameOver = document.querySelector('div.gameOver');
-    const winnerSpan = document.querySelector('p span.winner');
+    const winnerSpan = document.querySelector('p.winner');
 
     winnerSpan.textContent = winner;
-    
     gameOver.style.visibility = gameOver.style.visibility === "visible" ? "hidden" : "visible";
 }
 
@@ -131,9 +149,20 @@ function updateBoard() {
     }
 }
 
+function markWinCombo() {
+    const winCombo = gameBoard.getWinCombo();
+    for (i = 0; i < winCombo.length; i++) {
+        const spot = document.querySelector(`.spot-${winCombo[i]}`);
+        spot.style.backgroundColor = '#81b29a';
+        spot.style.color = '#fff'
+    }
+}
+
 function resetBoard() {
     for (i = 0; i < 9; i++) {
         const spot = document.querySelector(`.spot-${i}`);
+        spot.style.backgroundColor = '#2f6690';
+        spot.style.color = '#81c3d7';
         spot.textContent = "";
     }
 
@@ -145,7 +174,7 @@ function updateScore(winner) {
     const playerDOM = document.querySelector("span.player");
     const computerDOM = document.querySelector("span.computer");
 
-    if (winner === "X") {
+    if (winner === "player") {
         gameBoard.setPlayerScore();
         playerDOM.textContent = gameBoard.getPlayerScore();
     } else {
@@ -156,3 +185,11 @@ function updateScore(winner) {
 
 boardContainer.addEventListener('mouseup', selectSpot);
 resetBtn.addEventListener('mouseup', resetBoard);
+
+toggleMarkerBtn.addEventListener('mouseup', () => {
+    player.switchMarker();
+    computer.switchMarker();
+
+    const marker = document.querySelector('span.marker');
+    marker.textContent = player.getMarker();
+});

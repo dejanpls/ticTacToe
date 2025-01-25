@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Font -->
-    <!-- Add font here -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -45,8 +47,11 @@
         <div class="main">
             <div class="board"></div>
             <div style="visibility: hidden" class="gameOver">
-                <p class="text"><span class="winner">You</span> Won!</p>
-                <button type="button" class="btn reset">Reset</button>
+                <p class="winner">You Won!</p>
+                <div class="button-container">
+                    <button type="button" class="btn reset">Next Round</button>
+                    <button type="button" class="btn toggleMarker">Toggle Marker</button>
+                </div>
             </div>
         </div>
 
@@ -54,7 +59,7 @@
         <div class="footer-container">
             <div class="footer">
                 <p class="footer-text">
-                    Made by 
+                    Made by
                     <a class="link" href="https://github.com/dejanpls">
                         @dejanpls
                     </a>

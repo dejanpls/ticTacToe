@@ -11,48 +11,44 @@ const getRandomIndex = (spots) => {
     }
 }
 
-function createPlayer (marker) {    
+function createPlayer(marker) {
 
     const getMarker = () => marker;
     const switchMarker = () => marker = marker === "X" ? "O" : "X";
 
-    return {getMarker, switchMarker};
+    return { getMarker, switchMarker };
 }
+
+let player = createPlayer("X");
+let computer = createPlayer("O");
 
 const gameBoard = (function () {
     let spots = getGameBoard();
     let wins = [0, 0];
 
-    let player = createPlayer("X");
-    let computer = createPlayer("O");
-
-    const selectSpot = (spot) => {
-
+    const setSpot = (spot, marker) => {
         if (spots[spot] === null && !checkResult(spots)) {
-            spots[spot] =  player.getMarker();
-
-            const randomIndex = getRandomIndex(spots);
-
-            if (checkResult(spots)) {
-                console.log("You won!");   
-                wins[0] += 1;   
-            } else if (randomIndex !== -1) {
-                spots[randomIndex] = computer.getMarker();
-
-                if (checkResult(spots)) {
-                    console.log("Computer Won!");
-                    wins[1] += 1;
-                }
-            };
-            
-            if (randomIndex === -1 && !checkResult(spots)) console.log("Tie.");
-
-            console.log(spots);
+            spots[spot] = marker;
         }
     }
+
     const reset = () => spots = getGameBoard();
 
-    return {selectSpot, reset, wins};
+    const getSpots = () => spots;
+
+    const getSpot = (index) => {
+        if (spots[index] !== null) {
+            return spots[index];
+        }
+    }
+
+    const getPlayerScore = () => wins[0];
+    const getComputerScore = () => wins[1];
+
+    let setPlayerScore = () => wins[0] += 1;
+    let setComputerScore = () => wins[1] += 1;
+
+    return { setSpot, reset, getSpots, getPlayerScore, getComputerScore, getSpot, setPlayerScore, setComputerScore };
 })();
 
 const checkResult = (board) => {
@@ -78,13 +74,85 @@ const checkResult = (board) => {
 
 // DOM
 const boardContainer = document.querySelector("div.board");
+const resetBtn = document.querySelector("button.reset");
 
 function generateBoard() {
     for (i = 0; i < 9; i++) {
         const spot = document.createElement("div");
-        spot.classList = `spot spot-${i}`; 
+        spot.classList = `spot spot-${i}`;
         boardContainer.appendChild(spot);
     }
 }
 
 generateBoard();
+
+function selectSpot(e) {
+
+    if (e.target.textContent === "" && !checkResult(gameBoard.getSpots())) {
+
+        const index = e.target.classList[1].split("")[5];
+        gameBoard.setSpot(index, player.getMarker());
+    
+        const randomIndex = getRandomIndex(gameBoard.getSpots());
+    
+        if (checkResult(gameBoard.getSpots())) {
+            updateScore(player.getMarker());
+            toggleResetBtn("You");
+    
+        } else if (randomIndex !== -1) {
+            gameBoard.setSpot(randomIndex, computer.getMarker());
+    
+            if (checkResult(gameBoard.getSpots())) {
+                updateScore(computer.getMarker());
+                toggleResetBtn("Computer");
+            }
+        };
+    
+        if (randomIndex === -1 && !checkResult(gameBoard.getSpots())) console.log("Tie.");
+    
+        // update the DOM
+        updateBoard();
+    }
+}
+
+function toggleResetBtn (winner) {
+    const gameOver = document.querySelector('div.gameOver');
+    const winnerSpan = document.querySelector('p span.winner');
+
+    winnerSpan.textContent = winner;
+    
+    gameOver.style.visibility = gameOver.style.visibility === "visible" ? "hidden" : "visible";
+}
+
+function updateBoard() {
+    for (i = 0; i < 9; i++) {
+        const spot = document.querySelector(`.spot-${i}`);
+        spot.textContent = gameBoard.getSpot(i);
+    }
+}
+
+function resetBoard() {
+    for (i = 0; i < 9; i++) {
+        const spot = document.querySelector(`.spot-${i}`);
+        spot.textContent = "";
+    }
+
+    gameBoard.reset();
+    toggleResetBtn();
+}
+
+function updateScore(winner) {
+    const playerDOM = document.querySelector("span.player");
+    const computerDOM = document.querySelector("span.computer");
+
+    if (winner === "X") {
+        gameBoard.setPlayerScore();
+        playerDOM.textContent = gameBoard.getPlayerScore();
+    } else {
+        gameBoard.setComputerScore();
+        computerDOM.textContent = gameBoard.getComputerScore();
+    }
+}
+
+boardContainer.addEventListener('mouseup', selectSpot);
+resetBtn.addEventListener('mouseup', resetBoard);

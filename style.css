@@ -4,6 +4,12 @@
     box-sizing: border-box;
 }
 
+div.wrapper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 /* menu */
 .menu-container {
     color: #fff;
@@ -38,6 +44,24 @@
     
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+button.btn {
+    padding: 8px 16px;
+    background-color: #2f6690;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    cursor: pointer;
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    /* Add shadow effect */
+    transition: box-shadow 0.3s ease;
+    /* Smooth hover effect */
 }
 
 div.board {
@@ -58,8 +82,40 @@ div.spot {
     /* Add shadow effect */
     transition: box-shadow 0.3s ease;
     /* Smooth hover effect */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 42px;
 }
 
-div.spot:hover {
+div.spot:hover,
+button.btn:hover {
     box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+div.gameOver {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-container {
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: #2f6690;
+}
+
+.footer {
+    padding: 20px 0;
+}
+
+a.link {
+    text-decoration: none;
+    color: inherit;
 }

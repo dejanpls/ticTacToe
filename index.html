@@ -29,9 +29,9 @@
                     <span class="logoO">O</span>
                 </div>
 
-                <div class="turn">
+                <div class="marker-info">
+                    <span class="text">Marker:</span>
                     <span class="marker">X</span>
-                    <span class="text">'s turn</span>
                 </div>
                 <div class="score">
                     <span class="player">0</span>
@@ -44,10 +44,14 @@
         <!-- Main Section -->
         <div class="main">
             <div class="board"></div>
+            <div style="visibility: hidden" class="gameOver">
+                <p class="text"><span class="winner">You</span> Won!</p>
+                <button type="button" class="btn reset">Reset</button>
+            </div>
         </div>
 
         <!-- Footer Section -->
-        <div class="footer">
+        <div class="footer-container">
             <div class="footer">
                 <p class="footer-text">
                     Made by 

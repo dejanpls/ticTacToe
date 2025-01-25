@@ -29,4 +29,5 @@ ticTacToe/
 ├── index.html        # HTML structure
 ├── style.css         # Styling for the game
 ├── script.js         # Game logic and interactivity
+├── README.md         # General information about the game
 ```

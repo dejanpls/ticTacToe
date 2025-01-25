@@ -86,3 +86,5 @@ function generateBoard() {
         boardContainer.appendChild(spot);
     }
 }
+
+generateBoard();

@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* menu */
+.menu-container {
+    color: #fff;
+    background-color: #2f6690;
+    padding: 20px 0;
+
+    /* flexbox */
+    display: flex;
+    justify-content: center;
+}
+
+.menu {
+    width: 900px;
+
+    /*debugging*/
+    border: 1px solid #fff;
+
+    /* flexbox */
+    display: flex;
+    justify-content: space-between;
+    padding: 0 8px;
+}
+
+.menu * {
+    font-size: 32px;
+}
+
+
+/* gameboard */
+div.spot {
+    width: 100px;
+    height: 100px;
+    border: 1px solid red;
+}

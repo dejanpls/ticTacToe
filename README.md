@@ -1,7 +1,3 @@
-Here’s a concise and professional **README.md** for your Tic Tac Toe project:
-
----
-
 # Tic Tac Toe
 
 A simple and interactive Tic Tac Toe game built with HTML, CSS, and JavaScript. Play against a computer opponent and enjoy a responsive and modern design.
